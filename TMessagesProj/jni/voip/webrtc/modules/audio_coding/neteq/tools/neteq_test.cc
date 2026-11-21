@@ -222,14 +222,12 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
           out_frame.speech_type_ == AudioFrame::SpeechType::kPLCCNG) {
         // Consider the whole frame to be the result of expansion.
         result.action_times_ms[Action::kExpand] = 10;
-      } else if (operations_state.accelerate_samples -
-                     prev_ops_state_.accelerate_samples >
-                 0) {
+      } else if (operations_state.accelerate_samples >
+                 prev_ops_state_.accelerate_samples) {
         // Consider the whole frame to be the result of acceleration.
         result.action_times_ms[Action::kAccelerate] = 10;
-      } else if (operations_state.preemptive_samples -
-                     prev_ops_state_.preemptive_samples >
-                 0) {
+      } else if (operations_state.preemptive_samples >
+                 prev_ops_state_.preemptive_samples) {
         // Consider the whole frame to be the result of preemptive expansion.
         result.action_times_ms[Action::kPreemptiveExpand] = 10;
       } else {
